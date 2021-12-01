@@ -8,7 +8,11 @@
  <button @click="divided" class="btn">/</button>
  <button @click="isEqual" class="btn">=</button>
  <button @click="clear" class="btn">C</button>
-
+ <br>
+<h5>History</h5>
+<li v-for="item in listofoperation" :key="item">
+    {{ item }}
+  </li>
 </div>
 </template>
 
@@ -19,7 +23,8 @@ export default {
     return {
       inputData: "", 
       count:0,
-      typeofOperation: ""
+      typeofOperation: "",
+      listofoperation: []
     }
   },
   watch: {
@@ -27,12 +32,10 @@ export default {
 
   methods: {
     additions(){
-      // console.log(this.inputData);
       this.inputData = this.inputData.concat("+");
       this.typeofOperation = "addition"
     },
     deletion(){
-      // console.log(this.inputData);
       this.inputData = this.inputData.concat("-");
       this.typeofOperation = "deletion"
     },
@@ -50,6 +53,7 @@ export default {
       let result = parseInt(data[0]) + parseInt(data[1])
       this.inputData = this.inputData.concat("=");
       this.inputData = this.inputData.concat(result)
+      this.listofoperation.push(this.inputData);
       }
 
       else if (this.typeofOperation == "deletion"){
@@ -57,6 +61,7 @@ export default {
       let result = parseInt(data[0]) - parseInt(data[1])
       this.inputData = this.inputData.concat("=");
       this.inputData = this.inputData.concat(result)
+      this.listofoperation.push(this.inputData);
       }
 
       else if (this.typeofOperation == "multiplication"){
@@ -64,6 +69,7 @@ export default {
       let result = parseInt(data[0]) * parseInt(data[1])
       this.inputData = this.inputData.concat("=");
       this.inputData = this.inputData.concat(result)
+      this.listofoperation.push(this.inputData);
       }
 
       else if (this.typeofOperation == "divided"){
@@ -71,17 +77,18 @@ export default {
       let result = parseInt(data[0]) / parseInt(data[1])
       this.inputData = this.inputData.concat("=");
       this.inputData = this.inputData.concat(result)
+      this.listofoperation.push(this.inputData);
       }
 
       else{
         console.log("I'm from else")
       }
-      
 
     },
     clear(){
       this.inputData = "";
-    }
+    },
+
   }
   
 
